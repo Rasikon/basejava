@@ -4,19 +4,18 @@ import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
 
-/**
- * Array based storage for Resumes
- */
+
 public class ArrayStorage extends AbstractArrayStorage {
     @Override
-    protected void deleted(int index) {
+    protected void remove(int index) {
         storage[index] = storage[size - 1];
     }
 
     @Override
-    protected void saved(Resume r, int index) {
-        storage[size] = r;
+    protected void paste(Resume resume, int index) {
+        storage[size] = resume;
     }
+
     @Override
     protected int getIndex(String uuid) {
         for (int i = 0; i < size; i++) {

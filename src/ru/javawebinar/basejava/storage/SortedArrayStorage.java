@@ -4,9 +4,9 @@ import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
 
-public class SortedArrayStorage extends AbstractArrayStorage{
+public class SortedArrayStorage extends AbstractArrayStorage {
     @Override
-    protected void deleted(int index) {
+    protected void remove(int index) {
         int number = size - index - 1;
         if (number > 0) {
             System.arraycopy(storage, index + 1, storage, index, number);
@@ -14,10 +14,10 @@ public class SortedArrayStorage extends AbstractArrayStorage{
     }
 
     @Override
-    protected void saved(Resume r, int index) {
+    protected void paste(Resume resume, int index) {
         int number = -index - 1;
         System.arraycopy(storage, number, storage, number + 1, size - number);
-        storage[number] = r;
+        storage[number] = resume;
     }
 
     @Override

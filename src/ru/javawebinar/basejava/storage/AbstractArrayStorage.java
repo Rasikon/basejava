@@ -4,9 +4,7 @@ import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
 
-/**
- * Array based storage for Resumes
- */
+
 public abstract class AbstractArrayStorage implements Storage {
     protected static final int STORAGE_LIMIT = 10000;
 
@@ -18,23 +16,23 @@ public abstract class AbstractArrayStorage implements Storage {
         size = 0;
     }
 
-    public void update(Resume r) {
-        int index = getIndex(r.getUuid());
+    public void update(Resume resume) {
+        int index = getIndex(resume.getUuid());
         if (index < 0) {
-            System.out.println("Resume " + r.getUuid() + " not exist");
+            System.out.println("Resume with uuid =" + resume.getUuid() + " not exist");
         } else {
-            storage[index] = r;
+            storage[index] = resume;
         }
     }
 
-    public void save(Resume r) {
-        int index = getIndex(r.getUuid());
-        if (index >= 0)  {
-            System.out.println("Resume " + r.getUuid() + " already exist");
+    public void save(Resume resume) {
+        int index = getIndex(resume.getUuid());
+        if (index >= 0) {
+            System.out.println("Resume " + resume.getUuid() + " already exist");
         } else if (size >= STORAGE_LIMIT) {
             System.out.println("Storage overflow");
         } else {
-            saved(r,index);
+            paste(resume, index);
             size++;
         }
     }
@@ -44,7 +42,7 @@ public abstract class AbstractArrayStorage implements Storage {
         if (index < 0) {
             System.out.println("Resume " + uuid + " not exist");
         } else {
-            deleted(index);
+            remove(index);
             storage[size - 1] = null;
             size--;
         }
@@ -69,7 +67,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     protected abstract int getIndex(String uuid);
 
-    protected abstract void deleted(int index);
+    protected abstract void remove(int index);
 
-    protected abstract void saved(Resume r, int index);
+    protected abstract void paste(Resume r, int index);
 }
