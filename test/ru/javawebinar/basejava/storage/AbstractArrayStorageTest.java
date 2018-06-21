@@ -86,6 +86,14 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = StorageException.class)
     public void saveOverflow() throws Exception {
+        try {
+            int i = storage.size();
+            while (i <= AbstractArrayStorage.STORAGE_LIMIT) {
+                storage.save(new Resume());
+            }
+        } catch (StorageException e) {
+            Assert.fail();
+        }
 
     }
 }
