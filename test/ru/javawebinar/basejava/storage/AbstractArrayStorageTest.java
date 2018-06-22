@@ -21,7 +21,7 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         storage.clear();
         storage.save(new Resume(UUID_1));
         storage.save(new Resume(UUID_2));
@@ -29,18 +29,18 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test
-    public void size() throws Exception {
+    public void size() {
         Assert.assertEquals(3, storage.size());
     }
 
     @Test
-    public void clear() throws Exception {
+    public void clear() {
         storage.clear();
         Assert.assertEquals(0, storage.size());
     }
 
     @Test
-    public void update() throws Exception {
+    public void update() {
         Resume resume = new Resume(UUID_1);
         storage.update(resume);
         Assert.assertTrue(resume == storage.get(UUID_1));
@@ -48,13 +48,13 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test
-    public void getAll() throws Exception {
+    public void getAll() {
         Resume[] arr = storage.getAll();
         Assert.assertEquals(3, arr.length);
     }
 
     @Test
-    public void save() throws Exception {
+    public void save() {
         String UUID_4 = "uuid4";
         storage.save(new Resume(UUID_4));
         Assert.assertEquals(4, storage.size());
@@ -62,30 +62,30 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test(expected = NotExistStorageException.class)
-    public void delete() throws Exception {
+    public void delete() {
         storage.delete(UUID_2);
         Assert.assertEquals(2, storage.size());
         storage.get(UUID_2);
     }
 
     @Test
-    public void get() throws Exception {
+    public void get() {
         Assert.assertTrue(storage.get(UUID_1).getUuid().equals("uuid1"));
 
     }
 
     @Test(expected = NotExistStorageException.class)
-    public void getNotExist() throws Exception {
+    public void getNotExist() {
         storage.get("dummy");
     }
 
     @Test
-    public void getExist() throws Exception {
+    public void getExist() {
         Assert.assertTrue(UUID_1.equals(storage.get(UUID_1).getUuid()));
     }
 
     @Test(expected = StorageException.class)
-    public void saveOverflow() throws Exception {
+    public void saveOverflow() {
         try {
             int i = storage.size();
             while (i <= AbstractArrayStorage.STORAGE_LIMIT) {
