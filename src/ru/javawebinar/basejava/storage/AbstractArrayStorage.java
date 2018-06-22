@@ -34,10 +34,10 @@ public abstract class AbstractArrayStorage implements Storage {
             throw new ExistStorageException(resume.getUuid());
         } else if (size >= STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", resume.getUuid());
-        } else {
+        }
             paste(resume, index);
             size++;
-        }
+
     }
 
     public void delete(String uuid) {
@@ -71,5 +71,5 @@ public abstract class AbstractArrayStorage implements Storage {
 
     protected abstract void remove(int index);
 
-    protected abstract void paste(Resume r, int index);
+    protected abstract void paste(Resume resume, int index);
 }
