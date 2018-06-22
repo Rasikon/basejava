@@ -3,6 +3,7 @@ package ru.javawebinar.basejava.storage;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
@@ -50,7 +51,11 @@ public abstract class AbstractArrayStorageTest {
         Resume resume = new Resume(UUID_1);
         storage.update(resume);
         Assert.assertEquals(resume, storage.get(UUID_1));
+    }
 
+    @Test(expected = NotExistStorageException.class)
+    public void updateNotExist() {
+        storage.update(resume_4);
     }
 
     @Test
@@ -62,13 +67,6 @@ public abstract class AbstractArrayStorageTest {
         Assert.assertEquals(resume_3, arr[2]);
     }
 
-    @Test
-    public void save() {
-        storage.save(resume_4);
-        Assert.assertEquals(4, storage.size());
-        Assert.assertEquals(resume_4,storage.get(UUID_4));
-    }
-
     @Test(expected = NotExistStorageException.class)
     public void delete() {
         storage.delete(UUID_2);
@@ -76,10 +74,16 @@ public abstract class AbstractArrayStorageTest {
         storage.get(UUID_2);
     }
 
+    @Test(expected = NotExistStorageException.class)
+    public void deleteNotExist() {
+        storage.delete("dummy");
+    }
+
     @Test
     public void get() {
         Assert.assertEquals("uuid1", storage.get(UUID_1).getUuid());
-
+        Assert.assertEquals("uuid2", storage.get(UUID_2).getUuid());
+        Assert.assertEquals("uuid3", storage.get(UUID_3).getUuid());
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -88,8 +92,15 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test
-    public void getExist() {
-        Assert.assertEquals(UUID_1, storage.get(UUID_1).getUuid());
+    public void save() {
+        storage.save(resume_4);
+        Assert.assertEquals(4, storage.size());
+        Assert.assertEquals(resume_4, storage.get(UUID_4));
+    }
+
+    @Test(expected = ExistStorageException.class)
+    public void saveExist() {
+        storage.save(resume_1);
     }
 
     @Test(expected = StorageException.class)
