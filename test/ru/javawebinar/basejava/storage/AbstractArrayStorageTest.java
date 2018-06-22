@@ -16,10 +16,10 @@ public abstract class AbstractArrayStorageTest {
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
-    Resume resume_1 = new Resume(UUID_1);
-    Resume resume_2 = new Resume(UUID_2);
-    Resume resume_3 = new Resume(UUID_3);
-    Resume resume_4 = new Resume(UUID_4);
+    private static final Resume resume_1 = new Resume(UUID_1);
+    private static final Resume resume_2 = new Resume(UUID_2);
+    private static final Resume resume_3 = new Resume(UUID_3);
+    private static final Resume resume_4 = new Resume(UUID_4);
 
 
     public AbstractArrayStorageTest(Storage storage) {
@@ -47,8 +47,9 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void update() {
-        storage.update(resume_1);
-        Assert.assertTrue(resume_1 == storage.get(UUID_1));
+        Resume resume = new Resume(UUID_1);
+        storage.update(resume);
+        Assert.assertEquals(resume, storage.get(UUID_1));
 
     }
 
@@ -56,13 +57,16 @@ public abstract class AbstractArrayStorageTest {
     public void getAll() {
         Resume[] arr = storage.getAll();
         Assert.assertEquals(3, arr.length);
+        Assert.assertEquals(resume_1, arr[0]);
+        Assert.assertEquals(resume_2, arr[1]);
+        Assert.assertEquals(resume_3, arr[2]);
     }
 
     @Test
     public void save() {
         storage.save(resume_4);
         Assert.assertEquals(4, storage.size());
-        storage.get(UUID_4);
+        Assert.assertEquals(resume_4,storage.get(UUID_4));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -74,7 +78,7 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void get() {
-        Assert.assertTrue(storage.get(UUID_1).getUuid().equals("uuid1"));
+        Assert.assertEquals("uuid1", storage.get(UUID_1).getUuid());
 
     }
 
@@ -85,7 +89,7 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void getExist() {
-        Assert.assertTrue(UUID_1.equals(storage.get(UUID_1).getUuid()));
+        Assert.assertEquals(UUID_1, storage.get(UUID_1).getUuid());
     }
 
     @Test(expected = StorageException.class)
