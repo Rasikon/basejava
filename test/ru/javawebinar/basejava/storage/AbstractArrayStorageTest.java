@@ -15,6 +15,12 @@ public abstract class AbstractArrayStorageTest {
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
+    private static final String UUID_4 = "uuid4";
+    Resume resume_1 = new Resume(UUID_1);
+    Resume resume_2 = new Resume(UUID_2);
+    Resume resume_3 = new Resume(UUID_3);
+    Resume resume_4 = new Resume(UUID_4);
+
 
     public AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
@@ -23,9 +29,9 @@ public abstract class AbstractArrayStorageTest {
     @Before
     public void setUp() {
         storage.clear();
-        storage.save(new Resume(UUID_1));
-        storage.save(new Resume(UUID_2));
-        storage.save(new Resume(UUID_3));
+        storage.save(resume_1);
+        storage.save(resume_2);
+        storage.save(resume_3);
     }
 
     @Test
@@ -41,9 +47,8 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void update() {
-        Resume resume = new Resume(UUID_1);
-        storage.update(resume);
-        Assert.assertTrue(resume == storage.get(UUID_1));
+        storage.update(resume_1);
+        Assert.assertTrue(resume_1 == storage.get(UUID_1));
 
     }
 
@@ -55,8 +60,7 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void save() {
-        String UUID_4 = "uuid4";
-        storage.save(new Resume(UUID_4));
+        storage.save(resume_4);
         Assert.assertEquals(4, storage.size());
         storage.get(UUID_4);
     }
