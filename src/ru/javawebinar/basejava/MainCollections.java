@@ -3,9 +3,7 @@ package ru.javawebinar.basejava;
 import org.omg.CORBA.Object;
 import ru.javawebinar.basejava.model.Resume;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.*;
 
 public class MainCollections {
     private static final String UUID_1 = "uuid1";
@@ -41,6 +39,20 @@ public class MainCollections {
 
 
         System.out.println(collection.toString());
+
+
+        Map<String,Resume> map = new HashMap<>();
+        map.put(UUID_1,resume_1);
+        map.put(UUID_2,resume_2);
+        map.put(UUID_3,resume_3);
+
+        for(String uuid:map.keySet()) {
+            System.out.println(map.get(uuid));
+        }
+
+        for(Map.Entry<String,Resume> entry: map.entrySet()){
+            System.out.println(entry.getValue());
+        }
 
 
     }
