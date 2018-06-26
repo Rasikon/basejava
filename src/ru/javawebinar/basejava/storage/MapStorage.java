@@ -4,7 +4,7 @@ import ru.javawebinar.basejava.model.Resume;
 
 import java.util.HashMap;
 
-public class MapStorage extends AbstractStorage {
+public abstract class MapStorage extends AbstractStorage {
     protected HashMap<String, Resume> map = new HashMap<>();
     protected int size;
 
@@ -29,7 +29,7 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void renew(Resume resume, int index) {
+    protected void izUpdate(Resume resume, int index) {
 
     }
 

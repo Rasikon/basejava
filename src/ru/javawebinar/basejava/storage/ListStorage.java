@@ -23,17 +23,17 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public void izSave(Resume resume, int index) {
+    protected void izSave(Resume resume, int index) {
         list.add(resume);
     }
 
     @Override
-    public Resume izGet(int index) {
+    protected Resume izGet(int index) {
         return list.get(index);
     }
 
     @Override
-    public void izDelete(int index) {
+    protected void izDelete(int index) {
         list.remove(index);
     }
 

@@ -105,7 +105,7 @@ public abstract class AbstractArrayStorageTest {
             }
         } catch (StorageException e) {
             Assert.fail();
-        }
+       }
         storage.save(new Resume());
 
     }
