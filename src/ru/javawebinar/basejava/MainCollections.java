@@ -21,6 +21,10 @@ public class MainCollections {
         collection.add(resume_2);
         collection.add(resume_3);
 
+        System.out.println(((ArrayList<Resume>) collection).indexOf(resume_2));
+        ((ArrayList<Resume>) collection).set(0,resume_2);
+        System.out.println(((ArrayList<Resume>) collection).indexOf(resume_2));
+
         for (Resume r : collection) {
             System.out.println(r);
             if(r.getUuid().equals(UUID_1)){
@@ -53,6 +57,8 @@ public class MainCollections {
         for(Map.Entry<String,Resume> entry: map.entrySet()){
             System.out.println(entry.getValue());
         }
+
+
 
 
     }
