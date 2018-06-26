@@ -1,7 +1,7 @@
 package ru.javawebinar.basejava;
 
-import org.omg.CORBA.Object;
 import ru.javawebinar.basejava.model.Resume;
+import ru.javawebinar.basejava.storage.ListStorage;
 
 import java.util.*;
 
@@ -58,8 +58,12 @@ public class MainCollections {
             System.out.println(entry.getValue());
         }
 
-
-
+        ListStorage list = new ListStorage();
+        list.save(resume_1);
+        list.save(resume_2);
+        //list.delete(UUID_2);
+        list.clear();
+        System.out.println(list.get(UUID_1));
 
     }
 }
