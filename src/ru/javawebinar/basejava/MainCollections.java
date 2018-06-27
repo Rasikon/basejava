@@ -23,21 +23,21 @@ public class MainCollections {
         collection.add(resume_3);
 
         System.out.println(((ArrayList<Resume>) collection).indexOf(resume_2));
-        ((ArrayList<Resume>) collection).set(0,resume_2);
+        ((ArrayList<Resume>) collection).set(0, resume_2);
         System.out.println(((ArrayList<Resume>) collection).indexOf(resume_2));
 
         for (Resume r : collection) {
             System.out.println(r);
-            if(r.getUuid().equals(UUID_1)){
+            if (r.getUuid().equals(UUID_1)) {
 //                collection.remove(r);
             }
         }
         Iterator<Resume> iterator = collection.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Resume r = iterator.next();
             System.out.println(r);
-            if(r.getUuid().equals(UUID_1)){
-               iterator.remove();
+            if (r.getUuid().equals(UUID_1)) {
+                iterator.remove();
             }
 
         }
@@ -46,16 +46,16 @@ public class MainCollections {
         System.out.println(collection.toString());
 
 
-        Map<String,Resume> map = new HashMap<>();
-        map.put(UUID_1,resume_1);
-        map.put(UUID_2,resume_2);
-        map.put(UUID_3,resume_3);
+        Map<String, Resume> map = new HashMap<>();
+        map.put(UUID_1, resume_1);
+        map.put(UUID_2, resume_2);
+        map.put(UUID_3, resume_3);
 
-        for(String uuid:map.keySet()) {
+        for (String uuid : map.keySet()) {
             System.out.println(map.get(uuid));
         }
 
-        for(Map.Entry<String,Resume> entry: map.entrySet()){
+        for (Map.Entry<String, Resume> entry : map.entrySet()) {
             System.out.println(entry.getValue());
         }
 
@@ -64,7 +64,7 @@ public class MainCollections {
         list.save(resume_1);
         list.save(resume_2);
         list.delete(UUID_1);
-        for(int i =0;i<list.size();i++) {
+        for (int i = 0; i < list.size(); i++) {
             System.out.println(list.get(UUID_1));
         }
     }
