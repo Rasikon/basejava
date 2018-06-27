@@ -6,7 +6,6 @@ import java.util.HashMap;
 
 public class MapStorage extends AbstractStorage {
     protected HashMap<String, Resume> map = new HashMap<>();
-    protected int size;
 
     @Override
     public void clear() {
