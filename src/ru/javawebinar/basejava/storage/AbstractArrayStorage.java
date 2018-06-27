@@ -16,6 +16,14 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size = 0;
     }
 
+    public Resume[] getAll() {
+        return Arrays.copyOfRange(storage, 0, size);
+    }
+
+    public int size() {
+        return size;
+    }
+
     @Override
     protected void izSave(Resume resume, int index) {
         if (size >= STORAGE_LIMIT) {
@@ -30,14 +38,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         remove(index);
         storage[size - 1] = null;
         size--;
-    }
-
-    public Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, size);
-    }
-
-    public int size() {
-        return size;
     }
 
     @Override

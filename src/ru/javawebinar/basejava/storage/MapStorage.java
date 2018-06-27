@@ -4,7 +4,7 @@ import ru.javawebinar.basejava.model.Resume;
 
 import java.util.HashMap;
 
-public abstract class MapStorage extends AbstractStorage {
+public class MapStorage extends AbstractStorage {
     protected HashMap<String, Resume> map = new HashMap<>();
     protected int size;
 
@@ -14,18 +14,28 @@ public abstract class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public int size() {
-        return map.size();
-    }
-
-    @Override
     public Resume[] getAll() {
         return map.values().toArray(new Resume[size()]);
     }
 
     @Override
-    protected int getIndex(String uuid) {
-        return 0;
+    public int size() {
+        return map.size();
+    }
+
+    @Override
+    protected void izSave(Resume resume, int index) {
+
+    }
+
+    @Override
+    protected void izDelete(int index) {
+
+    }
+
+    @Override
+    protected Resume izGet(int index) {
+        return null;
     }
 
     @Override
@@ -34,17 +44,8 @@ public abstract class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public void save(Resume resume) {
-
+    protected int getIndex(String uuid) {
+        return 0;
     }
 
-    @Override
-    public Resume get(String uuid) {
-        return null;
-    }
-
-    @Override
-    public void delete(String uuid) {
-
-    }
 }
