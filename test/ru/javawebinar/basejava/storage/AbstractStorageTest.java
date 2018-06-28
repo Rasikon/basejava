@@ -57,8 +57,8 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void getAll() {
-        Resume[] arr = {resume_1, resume_2, resume_3};
-        Assert.assertArrayEquals(arr, storage.getAll());
+        Resume[] resumes = {resume_1, resume_2, resume_3};
+        Assert.assertArrayEquals(resumes, storage.getAll());
     }
 
     @Test(expected = NotExistStorageException.class)
