@@ -27,7 +27,7 @@ public abstract class AbstractStorage implements Storage {
     }
 
     private Object getIfExist(String uuid) {
-        Object masterKey = getIndex(uuid);
+        Object masterKey = getMasterKey(uuid);
         if (isExist(masterKey)) {
             throw new ExistStorageException(uuid);
         } else {
@@ -36,7 +36,7 @@ public abstract class AbstractStorage implements Storage {
     }
 
     private Object getIfNotExist(String uuid) {
-        Object masterKey = getIndex(uuid);
+        Object masterKey = getMasterKey(uuid);
         if (!isExist(masterKey)) {
             throw new NotExistStorageException(uuid);
         } else {
@@ -44,7 +44,7 @@ public abstract class AbstractStorage implements Storage {
         }
     }
 
-    protected abstract Object getIndex(String uuid);
+    protected abstract Object getMasterKey(String uuid);
 
     protected abstract void isUpdate(Object masterKey, Resume resume);
 
