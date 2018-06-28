@@ -25,7 +25,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void isSave(Resume resume, Object masterKey) {
+    protected void isSave(Object masterKey, Resume resume) {
         if (size >= STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", resume.getUuid());
         }
@@ -47,7 +47,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
 
     @Override
-    protected void isUpdate(Resume resume, Object masterKey) {
+    protected void isUpdate(Object masterKey, Resume resume) {
         storage[(Integer) masterKey] = resume;
     }
 

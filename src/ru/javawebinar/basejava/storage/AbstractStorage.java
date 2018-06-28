@@ -8,12 +8,12 @@ public abstract class AbstractStorage implements Storage {
 
     public void update(Resume resume) {
         Object masterKey = getIfNotExist(resume.getUuid());
-        isUpdate(resume, masterKey);
+        isUpdate(masterKey, resume);
     }
 
     public void save(Resume resume) {
         Object masterKey = getIfExist(resume.getUuid());
-        isSave(resume, masterKey);
+        isSave(masterKey, resume);
     }
 
     public void delete(String uuid) {
@@ -46,9 +46,9 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract Object getIndex(String uuid);
 
-    protected abstract void isUpdate(Resume resume, Object masterKey);
+    protected abstract void isUpdate(Object masterKey, Resume resume);
 
-    protected abstract void isSave(Resume resume, Object masterKey);
+    protected abstract void isSave(Object masterKey, Resume resume);
 
     protected abstract void isDelete(Object masterKey);
 

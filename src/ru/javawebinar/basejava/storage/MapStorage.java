@@ -29,12 +29,12 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void isUpdate(Resume resume, Object masterKey) {
+    protected void isUpdate(Object masterKey, Resume resume) {
         map.put((String) masterKey, resume);
     }
 
     @Override
-    protected void isSave(Resume resume, Object masterKey) {
+    protected void isSave(Object masterKey, Resume resume) {
         map.put((String) masterKey, resume);
     }
 

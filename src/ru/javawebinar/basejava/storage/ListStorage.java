@@ -24,7 +24,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void isSave(Resume resume, Object masterKey) {
+    protected void isSave(Object masterKey, Resume resume) {
         list.add(resume);
     }
 
@@ -39,7 +39,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void isUpdate(Resume resume, Object masterKey) {
+    protected void isUpdate(Object masterKey, Resume resume) {
         list.set((Integer) masterKey, resume);
     }
 
