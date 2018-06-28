@@ -15,7 +15,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     public Resume[] getAll() {
-        return map.values().toArray(new Resume[size()]);
+        return map.values().toArray(new Resume[0]);
     }
 
     @Override
@@ -24,32 +24,32 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected String getIndex(String uuid) {
+    protected String getMasterKey(String uuid) {
         return uuid;
     }
 
     @Override
-    protected void izUpdate(Resume resume, Object index) {
-        map.put((String) index, resume);
+    protected void isUpdate(Object masterKey, Resume resume) {
+        map.put((String) masterKey, resume);
     }
 
     @Override
-    protected void izSave(Resume resume, Object index) {
-        map.put((String) index, resume);
+    protected void isSave(Object masterKey, Resume resume) {
+        map.put((String) masterKey, resume);
     }
 
     @Override
-    protected void izDelete(Object index) {
-        map.remove((String) index);
+    protected void isDelete(Object masterKey) {
+        map.remove((String) masterKey);
     }
 
     @Override
-    protected Resume izGet(Object index) {
-        return map.get((String) index);
+    protected Resume isGet(Object masterKey) {
+        return map.get((String) masterKey);
     }
 
     @Override
-    protected boolean izExist(Object index) {
-        return map.containsKey((String) index);
+    protected boolean isExist(Object masterKey) {
+        return map.containsKey((String) masterKey);
     }
 }
