@@ -24,22 +24,22 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void izSave(Resume resume, Object index) {
+    protected void isSave(Resume resume, Object index) {
         list.add(resume);
     }
 
     @Override
-    protected void izDelete(Object index) {
+    protected void isDelete(Object index) {
         list.remove(((Integer) index).intValue());
     }
 
     @Override
-    protected Resume izGet(Object index) {
+    protected Resume isGet(Object index) {
         return list.get((Integer) index);
     }
 
     @Override
-    protected void izUpdate(Resume resume, Object index) {
+    protected void isUpdate(Resume resume, Object index) {
         list.set((Integer) index, resume);
     }
 
@@ -54,7 +54,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean izExist(Object index) {
+    protected boolean isExist(Object index) {
         return index != null;
     }
 }
