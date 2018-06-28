@@ -3,9 +3,10 @@ package ru.javawebinar.basejava.storage;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class MapStorage extends AbstractStorage {
-    protected HashMap<String, Resume> map = new HashMap<>();
+    protected Map<String, Resume> map = new HashMap<>();
 
     @Override
     public void clear() {
@@ -23,32 +24,32 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected Object getIndex(String uuid) {
-        return null;
+    protected String getIndex(String uuid) {
+        return uuid;
     }
 
     @Override
     protected void izUpdate(Resume resume, Object index) {
-
+        map.put((String)index,resume);
     }
 
     @Override
     protected void izSave(Resume resume, Object index) {
-
+        map.put((String)index,resume);
     }
 
     @Override
     protected void izDelete(Object index) {
-
+        map.remove((String)index);
     }
 
     @Override
     protected Resume izGet(Object index) {
-        return null;
+        return map.get((String)index);
     }
 
     @Override
     protected boolean izExist(Object index) {
-        return false;
+        return map.containsKey((String)index);
     }
 }
