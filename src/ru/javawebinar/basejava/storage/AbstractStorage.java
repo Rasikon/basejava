@@ -7,54 +7,54 @@ import ru.javawebinar.basejava.model.Resume;
 public abstract class AbstractStorage implements Storage {
 
     public void update(Resume resume) {
-        Object index = getIfNotExist(resume.getUuid());
-        isUpdate(resume, index);
+        Object masterKey = getIfNotExist(resume.getUuid());
+        isUpdate(resume, masterKey);
     }
 
     public void save(Resume resume) {
-        Object index = getIfExist(resume.getUuid());
-        isSave(resume, index);
+        Object masterKey = getIfExist(resume.getUuid());
+        isSave(resume, masterKey);
     }
 
     public void delete(String uuid) {
-        Object index = getIfNotExist(uuid);
-        isDelete(index);
+        Object masterKey = getIfNotExist(uuid);
+        isDelete(masterKey);
     }
 
     public Resume get(String uuid) {
-        Object index = getIfNotExist(uuid);
-        return isGet(index);
+        Object masterKey = getIfNotExist(uuid);
+        return isGet(masterKey);
     }
 
     private Object getIfExist(String uuid) {
-        Object index = getIndex(uuid);
-        if (isExist(index)) {
+        Object masterKey = getIndex(uuid);
+        if (isExist(masterKey)) {
             throw new ExistStorageException(uuid);
         } else {
-            return index;
+            return masterKey;
         }
     }
 
     private Object getIfNotExist(String uuid) {
-        Object index = getIndex(uuid);
-        if (!isExist(index)) {
+        Object masterKey = getIndex(uuid);
+        if (!isExist(masterKey)) {
             throw new NotExistStorageException(uuid);
         } else {
-            return index;
+            return masterKey;
         }
     }
 
     protected abstract Object getIndex(String uuid);
 
-    protected abstract void isUpdate(Resume resume, Object index);
+    protected abstract void isUpdate(Resume resume, Object masterKey);
 
-    protected abstract void isSave(Resume resume, Object index);
+    protected abstract void isSave(Resume resume, Object masterKey);
 
-    protected abstract void isDelete(Object index);
+    protected abstract void isDelete(Object masterKey);
 
-    protected abstract Resume isGet(Object index);
+    protected abstract Resume isGet(Object masterKey);
 
-    protected abstract boolean isExist(Object index);
+    protected abstract boolean isExist(Object masterKey);
 
 
 }
