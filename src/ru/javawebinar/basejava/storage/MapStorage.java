@@ -30,26 +30,26 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected void izUpdate(Resume resume, Object index) {
-        map.put((String)index,resume);
+        map.put((String) index, resume);
     }
 
     @Override
     protected void izSave(Resume resume, Object index) {
-        map.put((String)index,resume);
+        map.put((String) index, resume);
     }
 
     @Override
     protected void izDelete(Object index) {
-        map.remove((String)index);
+        map.remove((String) index);
     }
 
     @Override
     protected Resume izGet(Object index) {
-        return map.get((String)index);
+        return map.get((String) index);
     }
 
     @Override
     protected boolean izExist(Object index) {
-        return map.containsKey((String)index);
+        return map.containsKey((String) index);
     }
 }
