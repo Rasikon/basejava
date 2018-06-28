@@ -7,50 +7,54 @@ import ru.javawebinar.basejava.model.Resume;
 public abstract class AbstractStorage implements Storage {
 
     public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index < 0) {
-            throw new NotExistStorageException(resume.getUuid());
-        } else {
-            izUpdate(resume, index);
-        }
+        Object index = getNotExistStorageException(resume.getUuid());
+        izUpdate(resume, index);
     }
 
     public void save(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index >= 0) {
-            throw new ExistStorageException(resume.getUuid());
-        } else {
-            izSave(resume, index);
-        }
+        Object index = getExistStorageException(resume.getUuid());
+        izSave(resume, index);
     }
 
     public void delete(String uuid) {
-        int index = getIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        } else {
-            izDelete(index);
-        }
+        Object index = getNotExistStorageException(uuid);
+        izDelete(index);
     }
 
     public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
+        Object index = getNotExistStorageException(uuid);
+        return izGet(index);
+    }
+
+    private Object getExistStorageException(String uuid) {
+        Object index = getIndex(uuid);
+        if (izExist(index)) {
+            throw new ExistStorageException(uuid);
         } else {
-            return izGet(index);
+            return index;
         }
     }
 
-    protected abstract int getIndex(String uuid);
+    private Object getNotExistStorageException(String uuid) {
+        Object index = getIndex(uuid);
+        if (!izExist(index)) {
+            throw new NotExistStorageException(uuid);
+        } else {
+            return index;
+        }
+    }
 
-    protected abstract void izUpdate(Resume resume, int index);
+    protected abstract Object getIndex(String uuid);
 
-    protected abstract void izSave(Resume resume, int index);
+    protected abstract void izUpdate(Resume resume, Object index);
 
-    protected abstract void izDelete(int index);
+    protected abstract void izSave(Resume resume, Object index);
 
-    protected abstract Resume izGet(int index);
+    protected abstract void izDelete(Object index);
+
+    protected abstract Resume izGet(Object index);
+
+    protected abstract boolean izExist(Object index);
 
 
 }

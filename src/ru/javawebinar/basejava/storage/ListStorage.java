@@ -3,9 +3,10 @@ package ru.javawebinar.basejava.storage;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListStorage extends AbstractStorage {
-    protected ArrayList<Resume> list = new ArrayList<>();
+    protected List<Resume> list = new ArrayList<>();
 
     @Override
     public void clear() {
@@ -23,36 +24,39 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void izSave(Resume resume, int index) {
+    protected void izSave(Resume resume, Object index) {
         list.add(resume);
     }
 
     @Override
-    protected void izDelete(int index) {
-        list.remove(index);
+    protected void izDelete(Object index) {
+        list.remove(((Integer)index).intValue());
     }
 
     @Override
-    protected Resume izGet(int index) {
-        return list.get(index);
+    protected Resume izGet(Object index) {
+        return list.get((Integer) index);
     }
 
     @Override
-    protected void izUpdate(Resume resume, int index) {
-        list.set(index, resume);
+    protected void izUpdate(Resume resume, Object index) {
+        list.set((Integer) index, resume);
     }
 
     @Override
-    protected int getIndex(String uuid) {
-        for (Resume resume : list) {
-            if (uuid.equals(resume.getUuid())) {
-                return list.indexOf(resume);
+    protected Integer getIndex(String uuid) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getUuid().equals(uuid)) {
+                return i;
             }
         }
-        return -1;
+        return null;
     }
 
-
+    @Override
+    protected boolean izExist(Object index) {
+        return index != null;
+    }
 }
 
 

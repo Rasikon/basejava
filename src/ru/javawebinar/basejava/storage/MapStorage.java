@@ -23,28 +23,32 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void izSave(Resume resume, int index) {
-
-    }
-
-    @Override
-    protected void izDelete(int index) {
-
-    }
-
-    @Override
-    protected Resume izGet(int index) {
+    protected Object getIndex(String uuid) {
         return null;
     }
 
     @Override
-    protected void izUpdate(Resume resume, int index) {
+    protected void izUpdate(Resume resume, Object index) {
 
     }
 
     @Override
-    protected int getIndex(String uuid) {
-        return 0;
+    protected void izSave(Resume resume, Object index) {
+
     }
 
+    @Override
+    protected void izDelete(Object index) {
+
+    }
+
+    @Override
+    protected Resume izGet(Object index) {
+        return null;
+    }
+
+    @Override
+    protected boolean izExist(Object index) {
+        return false;
+    }
 }
