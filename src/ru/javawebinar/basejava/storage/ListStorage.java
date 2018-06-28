@@ -15,7 +15,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     public Resume[] getAll() {
-        return list.toArray(new Resume[size()]);
+        return list.toArray(new Resume[0]);
     }
 
     @Override
@@ -24,27 +24,27 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void izSave(Resume resume, Object index) {
+    protected void isSave(Object masterKey, Resume resume) {
         list.add(resume);
     }
 
     @Override
-    protected void izDelete(Object index) {
-        list.remove(((Integer) index).intValue());
+    protected void isDelete(Object masterKey) {
+        list.remove(((Integer) masterKey).intValue());
     }
 
     @Override
-    protected Resume izGet(Object index) {
-        return list.get((Integer) index);
+    protected Resume isGet(Object masterKey) {
+        return list.get((Integer) masterKey);
     }
 
     @Override
-    protected void izUpdate(Resume resume, Object index) {
-        list.set((Integer) index, resume);
+    protected void isUpdate(Object masterKey, Resume resume) {
+        list.set((Integer) masterKey, resume);
     }
 
     @Override
-    protected Integer getIndex(String uuid) {
+    protected Integer getMasterKey(String uuid) {
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getUuid().equals(uuid)) {
                 return i;
@@ -54,8 +54,8 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean izExist(Object index) {
-        return index != null;
+    protected boolean isExist(Object masterKey) {
+        return masterKey != null;
     }
 }
 
