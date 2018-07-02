@@ -7,7 +7,7 @@ public class Resume {
 
     // Unique identifier
     private final String uuid;
-    private String fullname;
+    private String fullName;
 
     public Resume() {
         this(UUID.randomUUID().toString());
