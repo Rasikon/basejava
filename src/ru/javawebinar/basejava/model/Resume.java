@@ -39,9 +39,5 @@ public class Resume implements Comparable<Resume> {
     public String toString() {
         return uuid;
     }
-
-    @Override
-    public int compareTo(Resume o) {
-        return uuid.compareTo(o.uuid);
-    }
+    
 }
