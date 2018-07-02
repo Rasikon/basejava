@@ -3,7 +3,7 @@ package ru.javawebinar.basejava.model;
 
 import java.util.UUID;
 
-public class Resume implements Comparable<Resume> {
+public class Resume {
 
     // Unique identifier
     private final String uuid;
@@ -39,5 +39,5 @@ public class Resume implements Comparable<Resume> {
     public String toString() {
         return uuid;
     }
-    
+
 }
