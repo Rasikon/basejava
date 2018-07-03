@@ -26,7 +26,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void isSave(Object masterKey, Resume resume) {
+    protected void doSave(Object masterKey, Resume resume) {
         if (size >= STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", resume.getUuid());
         }
@@ -35,29 +35,27 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void isDelete(Object masterKey) {
-        remove((Integer) masterKey);
+    protected void doDelete(Object index) {
+        remove((Integer) index);
         storage[size - 1] = null;
         size--;
     }
 
     @Override
-    protected Resume isGet(Object masterKey) {
-        return storage[(Integer) masterKey];
+    protected Resume doGet(Object index) {
+        return storage[(Integer) index];
     }
 
 
     @Override
-    protected void isUpdate(Object masterKey, Resume resume) {
-        storage[(Integer) masterKey] = resume;
+    protected void doUpdate(Object index, Resume resume) {
+        storage[(Integer) index] = resume;
     }
 
     @Override
     protected boolean isExist(Object index) {
         return (Integer) index > -1;
     }
-
-    protected abstract Integer getMasterKey(String uuid);
 
     protected abstract void remove(int index);
 

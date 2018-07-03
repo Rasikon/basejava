@@ -24,27 +24,27 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void isSave(Object masterKey, Resume resume) {
+    protected void doSave(Object key, Resume resume) {
         list.add(resume);
     }
 
     @Override
-    protected void isDelete(Object masterKey) {
-        list.remove(((Integer) masterKey).intValue());
+    protected void doDelete(Object key) {
+        list.remove(((Integer) key).intValue());
     }
 
     @Override
-    protected Resume isGet(Object masterKey) {
-        return list.get((Integer) masterKey);
+    protected Resume doGet(Object key) {
+        return list.get((Integer) key);
     }
 
     @Override
-    protected void isUpdate(Object masterKey, Resume resume) {
-        list.set((Integer) masterKey, resume);
+    protected void doUpdate(Object key, Resume resume) {
+        list.set((Integer) key, resume);
     }
 
     @Override
-    protected Integer getMasterKey(String uuid) {
+    protected Integer getKey(String uuid) {
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getUuid().equals(uuid)) {
                 return i;
