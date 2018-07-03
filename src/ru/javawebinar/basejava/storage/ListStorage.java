@@ -14,8 +14,8 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return list.toArray(new Resume[0]);
+    protected List<Resume> getCopy() {
+        return new ArrayList<>(list);
     }
 
     @Override
@@ -57,6 +57,7 @@ public class ListStorage extends AbstractStorage {
     protected boolean isExist(Object masterKey) {
         return masterKey != null;
     }
+
 }
 
 
