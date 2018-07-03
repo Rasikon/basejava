@@ -33,12 +33,12 @@ public class MapResumeStorage extends AbstractStorage {
 
     @Override
     protected void isUpdate(Object masterKey, Resume resume) {
-        map.put(((Resume)masterKey).getUuid(),resume);
+        map.put(resume.getUuid(),resume);
     }
 
     @Override
     protected void isSave(Object masterKey, Resume resume) {
-        map.put(((Resume)masterKey).getUuid(),resume);
+        map.put(resume.getUuid(),resume);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class MapResumeStorage extends AbstractStorage {
 
     @Override
     protected boolean isExist(Object masterKey) {
-        return map.containsKey(((Resume) masterKey).getUuid());
+        return masterKey != null;
     }
 
 }
