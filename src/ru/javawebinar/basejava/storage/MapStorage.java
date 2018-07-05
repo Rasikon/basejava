@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MapStorage extends AbstractStorage {
+public class MapStorage extends AbstractStorage<String> {
     protected Map<String, Resume> map = new HashMap<>();
 
     @Override
@@ -31,27 +31,27 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void doUpdate(Object key, Resume resume) {
-        map.put((String) key, resume);
+    protected void doUpdate(String key, Resume resume) {
+        map.put(key, resume);
     }
 
     @Override
-    protected void doSave(Object key, Resume resume) {
-        map.put((String) key, resume);
+    protected void doSave(String key, Resume resume) {
+        map.put(key, resume);
     }
 
     @Override
-    protected void doDelete(Object key) {
-        map.remove((String) key);
+    protected void doDelete(String key) {
+        map.remove(key);
     }
 
     @Override
-    protected Resume doGet(Object key) {
-        return map.get((String) key);
+    protected Resume doGet(String key) {
+        return map.get(key);
     }
 
     @Override
-    protected boolean isExist(Object key) {
-        return map.containsKey((String) key);
+    protected boolean isExist(String key) {
+        return map.containsKey(key);
     }
 }

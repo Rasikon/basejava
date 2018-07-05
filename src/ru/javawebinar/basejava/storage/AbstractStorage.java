@@ -7,30 +7,30 @@ import ru.javawebinar.basejava.model.Resume;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractStorage implements Storage {
+public abstract class AbstractStorage<K> implements Storage {
 
     public void update(Resume resume) {
-        Object key = getIfNotExist(resume.getUuid());
+        K key = getIfNotExist(resume.getUuid());
         doUpdate(key, resume);
     }
 
     public void save(Resume resume) {
-        Object key = getIfExist(resume.getUuid());
+        K key = getIfExist(resume.getUuid());
         doSave(key, resume);
     }
 
     public void delete(String uuid) {
-        Object key = getIfNotExist(uuid);
+        K key = getIfNotExist(uuid);
         doDelete(key);
     }
 
     public Resume get(String uuid) {
-        Object key = getIfNotExist(uuid);
+        K key = getIfNotExist(uuid);
         return doGet(key);
     }
 
-    private Object getIfExist(String uuid) {
-        Object key = getKey(uuid);
+    private K getIfExist(String uuid) {
+        K key = getKey(uuid);
         if (isExist(key)) {
             throw new ExistStorageException(uuid);
         } else {
@@ -38,8 +38,8 @@ public abstract class AbstractStorage implements Storage {
         }
     }
 
-    private Object getIfNotExist(String uuid) {
-        Object key = getKey(uuid);
+    private K getIfNotExist(String uuid) {
+        K key = getKey(uuid);
         if (!isExist(key)) {
             throw new NotExistStorageException(uuid);
         } else {
@@ -54,17 +54,17 @@ public abstract class AbstractStorage implements Storage {
         return list;
     }
 
-    protected abstract Object getKey(String uuid);
+    protected abstract K getKey(String uuid);
 
-    protected abstract void doUpdate(Object key, Resume resume);
+    protected abstract void doUpdate(K key, Resume resume);
 
-    protected abstract void doSave(Object key, Resume resume);
+    protected abstract void doSave(K key, Resume resume);
 
-    protected abstract void doDelete(Object key);
+    protected abstract void doDelete(K key);
 
-    protected abstract Resume doGet(Object key);
+    protected abstract Resume doGet(K key);
 
-    protected abstract boolean isExist(Object key);
+    protected abstract boolean isExist(K key);
 
     protected abstract List<Resume> getCopy();
 }
