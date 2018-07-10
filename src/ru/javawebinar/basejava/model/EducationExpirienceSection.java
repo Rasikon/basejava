@@ -3,7 +3,7 @@ package ru.javawebinar.basejava.model;
 import java.util.List;
 
 public class EducationExpirienceSection extends Section {
-    List<EducationExperience> educationExperiences;
+    private List<EducationExperience> educationExperiences;
 
     public EducationExpirienceSection(List<EducationExperience> educationExperiences) {
         this.educationExperiences = educationExperiences;
