@@ -11,4 +11,8 @@ public class TextSection extends Section {
         return filling;
     }
 
+    @Override
+    public String toString() {
+        return filling;
+    }
 }

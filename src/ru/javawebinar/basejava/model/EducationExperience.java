@@ -35,4 +35,15 @@ public class EducationExperience {
 
         return Objects.hash(page, startDate, endDate, title, content);
     }
+
+    @Override
+    public String toString() {
+        return "EducationExperience{" +
+                "page=" + page +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }

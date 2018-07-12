@@ -27,4 +27,10 @@ public class ListSection extends Section {
 
         return Objects.hash(filling);
     }
+
+    @Override
+    public String toString() {
+        return filling.toString();
+    }
 }
+

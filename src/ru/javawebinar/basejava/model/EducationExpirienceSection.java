@@ -27,4 +27,9 @@ public class EducationExpirienceSection extends Section {
 
         return Objects.hash(educationExperiences);
     }
+
+    @Override
+    public String toString() {
+        return educationExperiences.toString();
+    }
 }

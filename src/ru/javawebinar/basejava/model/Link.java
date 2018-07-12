@@ -25,4 +25,9 @@ public class Link {
 
         return Objects.hash(name, url);
     }
+
+    @Override
+    public String toString() {
+        return "Link(" + name + ',' + url + ')';
+    }
 }
