@@ -18,11 +18,12 @@ public class MainResume {
         listok.add("JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2");
         listok.add("Version control: Subversion, Git, Mercury, ClearCase, Perforce");
 
-        List<EducationExperience> listik = new ArrayList<EducationExperience>();
-        listik.add(new EducationExperience("petrovich", "petronov", LocalDate.of(2012, Month.APRIL, 5), LocalDate.of(2016, Month.AUGUST, 10), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike"));
+        List<Action> act = new ArrayList<>();
+        act.add(new Action(LocalDate.of(2014, 5, 12), LocalDate.of(2013, 4, 5), "dgdgdf", "dfdgdf"));
+        act.add(new Action(LocalDate.of(2016, 5, 4), LocalDate.of(2017, 8, 9), "dfdsg", "dgfgd"));
 
-        List<EducationExperience> listikon = new ArrayList<EducationExperience>();
-        listikon.add(new EducationExperience("petrovich", "petronov", LocalDate.of(2006, Month.APRIL, 5), LocalDate.of(2011, Month.AUGUST, 10), "Студент", "Инженер"));
+        List<EducationExperience> listik = new ArrayList<EducationExperience>();
+        listik.add(new EducationExperience("provan", "provan.ru", act));
 
         Resume resume = new Resume("Ivan", "Petrov");
 
@@ -38,7 +39,6 @@ public class MainResume {
         resume.setSections(SectionType.ACHIEVEMENT, new ListSection(list));
         resume.setSections(SectionType.QUALIFICATIONS, new ListSection(listok));
         resume.setSections(SectionType.EXPERIENCE, new EducationExpirienceSection(listik));
-        resume.setSections(SectionType.EDUCATION, new EducationExpirienceSection(listikon));
 
         System.out.println(resume.toString());
         System.out.println();

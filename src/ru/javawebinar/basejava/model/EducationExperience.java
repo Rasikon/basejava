@@ -1,21 +1,17 @@
 package ru.javawebinar.basejava.model;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class EducationExperience {
     private Link page;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private String title;
-    private String content;
+    private List<Action> actions = new ArrayList<>();
 
-    public EducationExperience(String name, String url, LocalDate startDate, LocalDate endDate, String title, String content) {
+
+    public EducationExperience(String name, String url, List<Action> actions) {
         this.page = new Link(name, url);
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.title = title;
-        this.content = content;
+        this.actions = actions;
     }
 
     @Override
@@ -24,26 +20,20 @@ public class EducationExperience {
         if (o == null || getClass() != o.getClass()) return false;
         EducationExperience that = (EducationExperience) o;
         return Objects.equals(page, that.page) &&
-                Objects.equals(startDate, that.startDate) &&
-                Objects.equals(endDate, that.endDate) &&
-                Objects.equals(title, that.title) &&
-                Objects.equals(content, that.content);
+                Objects.equals(actions, that.actions);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(page, startDate, endDate, title, content);
+        return Objects.hash(page, actions);
     }
 
     @Override
     public String toString() {
         return "EducationExperience{" +
                 "page=" + page +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
+                ", actions=" + actions +
                 '}';
     }
 }
