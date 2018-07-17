@@ -22,7 +22,7 @@ public class MainDate {
         System.out.println(ld);
         LocalTime lt = LocalTime.now();
         System.out.println(lt);
-        LocalDateTime ldt = LocalDateTime.of(ld,lt);
+        LocalDateTime ldt = LocalDateTime.of(ld, lt);
         System.out.println(ldt);
 
         SimpleDateFormat sdf = new SimpleDateFormat("YY/MM/dd");
