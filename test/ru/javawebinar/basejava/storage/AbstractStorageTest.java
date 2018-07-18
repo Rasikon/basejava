@@ -4,8 +4,10 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
-import ru.javawebinar.basejava.model.Resume;
+import ru.javawebinar.basejava.model.*;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,6 +25,30 @@ public abstract class AbstractStorageTest {
     private static final Resume resume_2 = new Resume(UUID_2, "name2");
     private static final Resume resume_3 = new Resume(UUID_3, "name3");
     private static final Resume resume_4 = new Resume(UUID_4, "name4");
+    static {
+        List<Action> workOrganization = new ArrayList<>();
+        workOrganization.add(new Action(LocalDate.of(2014, 5, 12), LocalDate.of(2013, 4, 5), "Разработчик", "Разработка ПО"));
+        workOrganization.add(new Action(LocalDate.of(2016, 5, 4), LocalDate.of(2017, 8, 9), "Тестировщик", "Тестирование ПО"));
+        List<EducationExperience> expirience = new ArrayList<EducationExperience>();
+        expirience.add(new EducationExperience("Organization1", "Organization1.ru", workOrganization));
+
+        List<Action> educationalOrganization = new ArrayList<>();
+        educationalOrganization.add(new Action(LocalDate.of(2012, 5, 12), LocalDate.of(2013, 4, 25), "Студент", "Изучение основ программирования"));
+        List<EducationExperience> educational = new ArrayList<>();
+        educational.add(new EducationExperience("Organization2", "Organization2.ru", educationalOrganization));
+        resume_1.setContacts(ContactsType.Phone, "7989565664");
+        resume_1.setContacts(ContactsType.Mail, "petrov@mail.ru");
+        resume_1.setContacts(ContactsType.Homepage, "www.petrov.ru");
+        resume_1.setContacts(ContactsType.Skype, "i.petrov");
+        resume_1.setContacts(ContactsType.GitHub, "petrovich");
+        resume_1.setContacts(ContactsType.LinkedIn, "petrusha");
+        resume_1.setContacts(ContactsType.Stackoverflow, "petronav");
+        resume_1.setSections(SectionType.OBJECTIVE, new TextSection("Ведущий разработчик"));
+        resume_1.setSections(SectionType.PERSONAL, new TextSection("Ответственный, трудолюбивый,исполнительный."));
+        resume_1.setSections(SectionType.EXPERIENCE,new EducationExpirienceSection(expirience));
+        resume_1.setSections(SectionType.EDUCATION, new EducationExpirienceSection(educational));
+
+    }
 
 
     public AbstractStorageTest(Storage storage) {
