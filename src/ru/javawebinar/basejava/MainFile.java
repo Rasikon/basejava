@@ -7,13 +7,13 @@ public class MainFile {
     public void searchFile(File dir) throws IOException {
         if (dir.isDirectory()) {
             File[] files = dir.listFiles();
-            for (File file : files) {
-                if (file.isDirectory())
-                    searchFile(file);
-            }
-            for (File file : files) {
-                if (file.isFile()) {
-                    System.out.println(file.getName());
+            if (files != null) {
+                for (File file : files) {
+                    if (file.isFile()) {
+                        System.out.println(file.getName());
+                    } else if (file.isDirectory()) {
+                        searchFile(file);
+                    }
                 }
             }
         }
