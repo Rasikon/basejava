@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class EducationExpirienceSection extends Section {
+    private static final long serialVersionUID = 1L;
     private List<EducationExperience> educationExperiences;
 
     public EducationExpirienceSection(List<EducationExperience> educationExperiences) {
