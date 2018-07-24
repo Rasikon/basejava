@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractStorageTest {
     protected static final File STORAGE_DIR = new File("D:\\basejava\\storage");
@@ -27,6 +26,7 @@ public abstract class AbstractStorageTest {
     private static final Resume resume_2;
     private static final Resume resume_3;
     private static final Resume resume_4;
+
     static {
         resume_1 = new Resume(UUID_1, "name1");
         resume_2 = new Resume(UUID_2, "name2");
@@ -52,7 +52,7 @@ public abstract class AbstractStorageTest {
         resume_1.setContacts(ContactsType.Stackoverflow, "petronav");
         resume_1.setSections(SectionType.OBJECTIVE, new TextSection("Ведущий разработчик"));
         resume_1.setSections(SectionType.PERSONAL, new TextSection("Ответственный, трудолюбивый,исполнительный."));
-        resume_1.setSections(SectionType.EXPERIENCE,new EducationExpirienceSection(expirience));
+        resume_1.setSections(SectionType.EXPERIENCE, new EducationExpirienceSection(expirience));
         resume_1.setSections(SectionType.EDUCATION, new EducationExpirienceSection(educational));
         resume_2.setContacts(ContactsType.Skype, "rrtryy");
         resume_2.setContacts(ContactsType.Phone, "5465466567");
