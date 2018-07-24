@@ -23,15 +23,20 @@ public abstract class AbstractStorageTest {
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
-    private static final Resume resume_1 = new Resume(UUID_1, "name1");
-    private static final Resume resume_2 = new Resume(UUID_2, "name2");
-    private static final Resume resume_3 = new Resume(UUID_3, "name3");
-    private static final Resume resume_4 = new Resume(UUID_4, "name4");
+    private static final Resume resume_1;
+    private static final Resume resume_2;
+    private static final Resume resume_3;
+    private static final Resume resume_4;
     static {
+        resume_1 = new Resume(UUID_1, "name1");
+        resume_2 = new Resume(UUID_2, "name2");
+        resume_3 = new Resume(UUID_3, "name3");
+        resume_4 = new Resume(UUID_4, "name4");
+
         List<Action> workOrganization = new ArrayList<>();
         workOrganization.add(new Action(LocalDate.of(2014, 5, 12), LocalDate.of(2013, 4, 5), "Разработчик", "Разработка ПО"));
         workOrganization.add(new Action(LocalDate.of(2016, 5, 4), LocalDate.of(2017, 8, 9), "Тестировщик", "Тестирование ПО"));
-        List<EducationExperience> expirience = new ArrayList<EducationExperience>();
+        List<EducationExperience> expirience = new ArrayList<>();
         expirience.add(new EducationExperience("Organization1", "Organization1.ru", workOrganization));
 
         List<Action> educationalOrganization = new ArrayList<>();
@@ -111,7 +116,9 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void get() {
-        assertEquals(resume_1, storage.get(UUID_1));
+        assertGet(resume_1);
+        assertGet(resume_2);
+        assertGet(resume_3);
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -129,6 +136,10 @@ public abstract class AbstractStorageTest {
     @Test(expected = ExistStorageException.class)
     public void saveExist() {
         storage.save(resume_1);
+    }
+
+    private void assertGet(Resume resume) {
+        assertEquals(resume, storage.get(resume.getUuid()));
     }
 
 }

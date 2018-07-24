@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Action implements Serializable {
-    private static final long serialVersionUID = 1L;
     private LocalDate startDate;
     private LocalDate endDate;
     private String title;
@@ -16,6 +15,22 @@ public class Action implements Serializable {
         this.endDate = endDate;
         this.title = title;
         this.content = content;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
     }
 
     @Override

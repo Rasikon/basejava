@@ -7,6 +7,7 @@ import java.util.Objects;
 
 public class EducationExperience implements Serializable {
     private static final long serialVersionUID = 1L;
+
     private Link page;
     private List<Action> actions = new ArrayList<>();
 
