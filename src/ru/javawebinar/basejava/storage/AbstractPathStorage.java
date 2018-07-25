@@ -35,7 +35,8 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
             throw new StorageException("Path delete error", null);
         }
     }
-
+}
+/*
     @Override
     protected List<Resume> getCopy() {
         Path[] listPaths = directory.listPaths();
@@ -103,4 +104,4 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
         return Path.exists();
     }
 
-}
+}*/

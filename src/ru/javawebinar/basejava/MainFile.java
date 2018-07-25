@@ -4,15 +4,16 @@ import java.io.File;
 import java.io.IOException;
 
 public class MainFile {
-    public void searchFile(File dir) throws IOException {
+    public void searchFile(File dir,String space) throws IOException {
         if (dir.isDirectory()) {
             File[] files = dir.listFiles();
             if (files != null) {
                 for (File file : files) {
                     if (file.isFile()) {
-                        System.out.println(file.getName());
+                        System.out.println(space + "File " + file.getName());
                     } else if (file.isDirectory()) {
-                        searchFile(file);
+                        System.out.println(space + "Catalog " + file.getName());
+                        searchFile(file,space + " ");
                     }
                 }
             }
@@ -20,23 +21,10 @@ public class MainFile {
     }
 
     public static void main(String[] args) throws IOException {
- /*       String filepath = "D:\\basejava\\.gitignore";
-        File file = new File("D:\\basejava\\.gitignore");
-        try {
-            System.out.println(file.getCanonicalPath());
-        } catch (IOException e) {
-            throw new RuntimeException("Error", e);
-        }*/
-        File dir = new File("D:\\basejava\\");
+        File dir = new File("D:\\basejava\\src\\ru");
         MainFile file = new MainFile();
-        file.searchFile(dir);
+        file.searchFile(dir,"");
 
-
-/*        try (FileInputStream fis = new FileInputStream(filepath)) {
-            System.out.println(fis.read());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }*/
     }
 }
 
