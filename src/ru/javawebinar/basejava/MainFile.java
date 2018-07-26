@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class MainFile {
-    public void searchFile(File dir,String space) throws IOException {
+    public void searchFile(File dir, String space) throws IOException {
         if (dir.isDirectory()) {
             File[] files = dir.listFiles();
             if (files != null) {
@@ -13,7 +13,7 @@ public class MainFile {
                         System.out.println(space + "File " + file.getName());
                     } else if (file.isDirectory()) {
                         System.out.println(space + "Catalog " + file.getName());
-                        searchFile(file,space + " ");
+                        searchFile(file, space + " ");
                     }
                 }
             }
@@ -23,7 +23,7 @@ public class MainFile {
     public static void main(String[] args) throws IOException {
         File dir = new File("D:\\basejava\\src\\ru");
         MainFile file = new MainFile();
-        file.searchFile(dir,"");
+        file.searchFile(dir, "");
 
     }
 }
