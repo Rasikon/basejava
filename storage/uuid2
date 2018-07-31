@@ -1,16 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<resume>
-    <uuid>uuid2</uuid>
-    <fullName>name2</fullName>
-    <contacts>
-        <entry>
-            <key>Phone</key>
-            <value>5465466567</value>
-        </entry>
-        <entry>
-            <key>Skype</key>
-            <value>rrtryy</value>
-        </entry>
-    </contacts>
-    <sections/>
-</resume>
+{"uuid":"uuid2","fullName":"name2","contacts":{"Phone":"5465466567","Skype":"rrtryy"},"sections":{}}
