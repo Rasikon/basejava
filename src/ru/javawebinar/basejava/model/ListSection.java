@@ -1,5 +1,7 @@
 package ru.javawebinar.basejava.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import java.util.List;
 import java.util.Objects;
 
@@ -7,6 +9,9 @@ public class ListSection extends Section {
     private static final long serialVersionUID = 1L;
 
     private List<String> filling;
+
+    public ListSection() {
+    }
 
     public ListSection(List<String> filling) {
         this.filling = filling;

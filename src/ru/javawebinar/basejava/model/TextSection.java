@@ -1,11 +1,16 @@
 package ru.javawebinar.basejava.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import java.util.Objects;
 
 public class TextSection extends Section {
     private static final long serialVersionUID = 1L;
 
     private String filling;
+
+    public TextSection() {
+    }
 
     public TextSection(String filling) {
         this.filling = filling;

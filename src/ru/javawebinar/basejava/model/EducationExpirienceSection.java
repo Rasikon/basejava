@@ -1,5 +1,7 @@
 package ru.javawebinar.basejava.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import java.util.List;
 import java.util.Objects;
 
@@ -7,6 +9,9 @@ public class EducationExpirienceSection extends Section {
     private static final long serialVersionUID = 1L;
 
     private List<EducationExperience> educationExperiences;
+
+    public EducationExpirienceSection() {
+    }
 
     public EducationExpirienceSection(List<EducationExperience> educationExperiences) {
         this.educationExperiences = educationExperiences;

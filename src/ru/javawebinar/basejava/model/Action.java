@@ -1,14 +1,25 @@
 package ru.javawebinar.basejava.model;
 
+import ru.javawebinar.basejava.util.LocalDateAdapter;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Action implements Serializable {
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate startDate;
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate endDate;
     private String title;
     private String content;
+
+    public Action() {
+    }
 
     public Action(LocalDate startDate, LocalDate endDate, String title, String content) {
         this.startDate = startDate;
