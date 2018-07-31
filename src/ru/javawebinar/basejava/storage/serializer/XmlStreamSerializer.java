@@ -16,7 +16,7 @@ public class XmlStreamSerializer implements Serializer {
     }
 
     @Override
-    public void doWrite(OutputStream os,Resume resume) throws IOException {
+    public void doWrite(OutputStream os, Resume resume) throws IOException {
         try (Writer w = new OutputStreamWriter(os, StandardCharsets.UTF_8)) {
             xmlParser.marshall(resume, w);
         }
