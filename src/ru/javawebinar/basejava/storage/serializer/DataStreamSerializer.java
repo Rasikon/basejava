@@ -37,7 +37,16 @@ public class DataStreamSerializer implements Serializer{
                     int size = ((EducationExpirienceSection) section).getEducationExperiences().size();
                     List<EducationExperience> list = ((EducationExpirienceSection) section).getEducationExperiences();
                     for (int i = 0;i<size;i++) {
-                        list.get(i).
+                        dos.writeUTF(list.get(i).getPage().getName());
+                        dos.writeUTF(list.get(i).getPage().getUrl());
+                        for(int j=0;j<list.get(i).getActions().size();j++) {
+                            dos.writeInt(list.get(i).getActions().get(j).getStartDate().getYear());
+                            dos.writeInt(list.get(i).getActions().get(j).getStartDate().getMonth().getValue());
+                            dos.writeInt(list.get(i).getActions().get(j).getEndDate().getYear());
+                            dos.writeInt(list.get(i).getActions().get(j).getEndDate().getMonth().getValue());
+                            dos.writeUTF(list.get(i).getActions().get(j).getTitle());
+                            dos.writeUTF(list.get(i).getActions().get(j).getContent());
+                        }
                     }
                 }
             }
