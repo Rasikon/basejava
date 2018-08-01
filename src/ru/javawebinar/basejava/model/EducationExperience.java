@@ -22,6 +22,14 @@ public class EducationExperience implements Serializable {
         this.actions = actions;
     }
 
+    public Link getPage() {
+        return page;
+    }
+
+    public List<Action> getActions() {
+        return actions;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

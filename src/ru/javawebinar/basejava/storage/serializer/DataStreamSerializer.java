@@ -1,10 +1,10 @@
 package ru.javawebinar.basejava.storage.serializer;
 
 import ru.javawebinar.basejava.exception.StorageException;
-import ru.javawebinar.basejava.model.ContactsType;
-import ru.javawebinar.basejava.model.Resume;
+import ru.javawebinar.basejava.model.*;
 
 import java.io.*;
+import java.util.List;
 import java.util.Map;
 
 public class DataStreamSerializer implements Serializer{
@@ -19,6 +19,27 @@ public class DataStreamSerializer implements Serializer{
             for(Map.Entry<ContactsType,String> entry: contacts.entrySet()){
                 dos.writeUTF(entry.getKey().name());
                 dos.writeUTF(entry.getValue());
+            }
+            Map<SectionType,Section> sections = resume.getSections();
+            dos.writeInt(sections.size());
+            for(Map.Entry<SectionType,Section> entry:sections.entrySet()) {
+                SectionType type = entry.getKey();
+                Section section = entry.getValue();
+                dos.writeUTF(type.name());
+                if (type == SectionType.OBJECTIVE || type == SectionType.PERSONAL) {
+                    dos.writeUTF(((TextSection) section).getFilling() );
+                } else if (type == SectionType.ACHIEVEMENT || type == SectionType.QUALIFICATIONS) {
+                    int size = ((ListSection) section).getFilling().size();
+                    for (int i = 0;i<size;i++) {
+                        dos.writeUTF(((ListSection) section).getFilling().get(i));
+                    }
+                } else if (type == SectionType.EDUCATION || type == SectionType.EXPERIENCE) {
+                    int size = ((EducationExpirienceSection) section).getEducationExperiences().size();
+                    List<EducationExperience> list = ((EducationExpirienceSection) section).getEducationExperiences();
+                    for (int i = 0;i<size;i++) {
+                        list.get(i).
+                    }
+                }
             }
         }
     }
