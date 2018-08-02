@@ -45,9 +45,8 @@ public class DataStreamSerializer implements Serializer {
                         int sizeAction = list.get(i).getActions().size();
                         dos.writeInt(sizeAction);
                         for (int j = 0; j < sizeAction; j++) {
-                            writeLocalDate(dos, );
-                            dos.writeInt(list.get(i).getActions().get(j).getEndDate().getYear());
-                            dos.writeInt(list.get(i).getActions().get(j).getEndDate().getMonth().getValue());
+                            writeLocalDate(dos, list.get(i).getActions().get(j).getStartDate());
+                            writeLocalDate(dos, list.get(i).getActions().get(j).getEndDate());
                             dos.writeUTF(list.get(i).getActions().get(j).getTitle());
                             dos.writeUTF(list.get(i).getActions().get(j).getContent());
                         }
@@ -85,17 +84,12 @@ public class DataStreamSerializer implements Serializer {
                     for (int j = 0; j < sizeList; j++) {
                         String name = dis.readUTF();
                         String url = dis.readUTF();
-                        int actionSize = dis.readInt();
-                        List actionList = new ArrayList(actionSize);
-                        for (int k = 0; k < actionSize; k++) {
-                            actionList.add(dis.readInt());
-                            actionList.add(dis.readInt());
-                            actionList.add(dis.readInt());
-                            actionList.add(dis.readInt());
-                            actionList.add(dis.readUTF());
-                            actionList.add(dis.readUTF());
+                        int sizeAction = dis.readInt();
+                        List<Action> listAction = new ArrayList<>(sizeAction);
+                        for (int k = 0; k < sizeAction; k++) {
+                            listAction.add(k, new Action(readLocalDate(dis), readLocalDate(dis), dis.readUTF(), dis.readUTF()));
                         }
-                        list.add(new EducationExperience(name, url, actionList));
+                        list.add(new EducationExperience(name, url, listAction));
                     }
                     resume.setSections(type, new EducationExpirienceSection(list));
                 }
