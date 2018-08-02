@@ -1,13 +1,14 @@
 package ru.javawebinar.basejava.storage.serializer;
 
-import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.*;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class DataStreamSerializer implements Serializer{
+public class DataStreamSerializer implements Serializer {
 
     @Override
     public void doWrite(OutputStream os, Resume resume) throws IOException {
@@ -16,32 +17,35 @@ public class DataStreamSerializer implements Serializer{
             dos.writeUTF(resume.getFullName());
             Map<ContactsType, String> contacts = resume.getContacts();
             dos.writeInt(contacts.size());
-            for(Map.Entry<ContactsType,String> entry: contacts.entrySet()){
+            for (Map.Entry<ContactsType, String> entry : contacts.entrySet()) {
                 dos.writeUTF(entry.getKey().name());
                 dos.writeUTF(entry.getValue());
             }
-            Map<SectionType,Section> sections = resume.getSections();
+            Map<SectionType, Section> sections = resume.getSections();
             dos.writeInt(sections.size());
-            for(Map.Entry<SectionType,Section> entry:sections.entrySet()) {
+            for (Map.Entry<SectionType, Section> entry : sections.entrySet()) {
                 SectionType type = entry.getKey();
                 Section section = entry.getValue();
                 dos.writeUTF(type.name());
                 if (type == SectionType.OBJECTIVE || type == SectionType.PERSONAL) {
-                    dos.writeUTF(((TextSection) section).getFilling() );
+                    dos.writeUTF(((TextSection) section).getFilling());
                 } else if (type == SectionType.ACHIEVEMENT || type == SectionType.QUALIFICATIONS) {
                     int size = ((ListSection) section).getFilling().size();
-                    for (int i = 0;i<size;i++) {
+                    dos.writeInt(size);
+                    for (int i = 0; i < size; i++) {
                         dos.writeUTF(((ListSection) section).getFilling().get(i));
                     }
                 } else if (type == SectionType.EDUCATION || type == SectionType.EXPERIENCE) {
                     int size = ((EducationExpirienceSection) section).getEducationExperiences().size();
+                    dos.writeInt(size);
                     List<EducationExperience> list = ((EducationExpirienceSection) section).getEducationExperiences();
-                    for (int i = 0;i<size;i++) {
+                    for (int i = 0; i < size; i++) {
                         dos.writeUTF(list.get(i).getPage().getName());
                         dos.writeUTF(list.get(i).getPage().getUrl());
-                        for(int j=0;j<list.get(i).getActions().size();j++) {
-                            dos.writeInt(list.get(i).getActions().get(j).getStartDate().getYear());
-                            dos.writeInt(list.get(i).getActions().get(j).getStartDate().getMonth().getValue());
+                        int sizeAction = list.get(i).getActions().size();
+                        dos.writeInt(sizeAction);
+                        for (int j = 0; j < sizeAction; j++) {
+                            writeLocalDate(dos, );
                             dos.writeInt(list.get(i).getActions().get(j).getEndDate().getYear());
                             dos.writeInt(list.get(i).getActions().get(j).getEndDate().getMonth().getValue());
                             dos.writeUTF(list.get(i).getActions().get(j).getTitle());
@@ -60,10 +64,52 @@ public class DataStreamSerializer implements Serializer{
             String fullName = dis.readUTF();
             Resume resume = new Resume(uuid, fullName);
             int size = dis.readInt();
-            for(int i =0; i<size;i++) {
+            for (int i = 0; i < size; i++) {
                 resume.setContacts(ContactsType.valueOf(dis.readUTF()), dis.readUTF());
+            }
+            int sizeSection = dis.readInt();
+            for (int i = 0; i < sizeSection; i++) {
+                SectionType type = SectionType.valueOf(dis.readUTF());
+                if (type == SectionType.OBJECTIVE || type == SectionType.PERSONAL) {
+                    resume.setSections(type, new TextSection(dis.readUTF()));
+                } else if (type == SectionType.ACHIEVEMENT || type == SectionType.QUALIFICATIONS) {
+                    int sizeList = dis.readInt();
+                    List<String> list = new ArrayList<>(sizeList);
+                    for (int j = 0; j < sizeList; j++) {
+                        list.add(j, dis.readUTF());
+                    }
+                    resume.setSections(type, new ListSection(list));
+                } else if (type == SectionType.EDUCATION || type == SectionType.EXPERIENCE) {
+                    int sizeList = dis.readInt();
+                    List<EducationExperience> list = new ArrayList<>(sizeList);
+                    for (int j = 0; j < sizeList; j++) {
+                        String name = dis.readUTF();
+                        String url = dis.readUTF();
+                        int actionSize = dis.readInt();
+                        List actionList = new ArrayList(actionSize);
+                        for (int k = 0; k < actionSize; k++) {
+                            actionList.add(dis.readInt());
+                            actionList.add(dis.readInt());
+                            actionList.add(dis.readInt());
+                            actionList.add(dis.readInt());
+                            actionList.add(dis.readUTF());
+                            actionList.add(dis.readUTF());
+                        }
+                        list.add(new EducationExperience(name, url, actionList));
+                    }
+                    resume.setSections(type, new EducationExpirienceSection(list));
+                }
             }
             return resume;
         }
+    }
+
+    private void writeLocalDate(DataOutputStream dos, LocalDate ld) throws IOException {
+        dos.writeInt(ld.getYear());
+        dos.writeInt(ld.getMonth().getValue());
+    }
+
+    private LocalDate readLocalDate(DataInputStream dis) throws IOException {
+        return LocalDate.of(dis.readInt(), dis.readInt(), 1);
     }
 }
