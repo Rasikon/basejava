@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractStorageTest {
     protected static final File STORAGE_DIR = new File("D:\\basejava\\storage");
@@ -34,13 +35,13 @@ public abstract class AbstractStorageTest {
         resume_4 = new Resume(UUID_4, "name4");
 
         List<Action> workOrganization = new ArrayList<>();
-        workOrganization.add(new Action(LocalDate.of(2014, 5, 12), LocalDate.of(2013, 4, 5), "Разработчик", "Разработка ПО"));
-        workOrganization.add(new Action(LocalDate.of(2016, 5, 4), LocalDate.of(2017, 8, 9), "Тестировщик", "Тестирование ПО"));
+        workOrganization.add(new Action(LocalDate.of(2014, 5, 1), LocalDate.of(2013, 4, 1), "Разработчик", "Разработка ПО"));
+        workOrganization.add(new Action(LocalDate.of(2016, 5, 1), LocalDate.of(2017, 8, 1), "Тестировщик", "Тестирование ПО"));
         List<EducationExperience> expirience = new ArrayList<>();
         expirience.add(new EducationExperience("Organization1", "Organization1.ru", workOrganization));
 
         List<Action> educationalOrganization = new ArrayList<>();
-        educationalOrganization.add(new Action(LocalDate.of(2012, 5, 12), LocalDate.of(2013, 4, 25), "Студент", "Изучение основ программирования"));
+        educationalOrganization.add(new Action(LocalDate.of(2012, 5, 1), LocalDate.of(2013, 4, 1), "Студент", "Изучение основ программирования"));
         List<EducationExperience> educational = new ArrayList<>();
         educational.add(new EducationExperience("Organization2", "Organization2.ru", educationalOrganization));
         resume_1.setContacts(ContactsType.Phone, "7989565664");
@@ -56,6 +57,8 @@ public abstract class AbstractStorageTest {
         resume_1.setSections(SectionType.EDUCATION, new EducationExpirienceSection(educational));
         resume_2.setContacts(ContactsType.Skype, "rrtryy");
         resume_2.setContacts(ContactsType.Phone, "5465466567");
+        resume_4.setContacts(ContactsType.Homepage, "vasechkin.com");
+        resume_4.setContacts(ContactsType.Mail , "vasechkin@mail.com");
 
     }
 
@@ -86,6 +89,9 @@ public abstract class AbstractStorageTest {
     @Test
     public void update() {
         Resume newResume = new Resume(UUID_1, "New Name");
+        newResume.setContacts(ContactsType.Mail, "petrov.com");
+        newResume.setContacts(ContactsType.Skype, "petrovich");
+        newResume.setContacts(ContactsType.Phone, "8951325687");
         storage.update(newResume);
         assertEquals(newResume, storage.get(UUID_1));
     }
