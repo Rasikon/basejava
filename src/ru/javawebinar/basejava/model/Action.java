@@ -25,7 +25,7 @@ public class Action implements Serializable {
         this.startDate = startDate;
         this.endDate = endDate;
         this.title = title;
-        this.content = content;
+        this.content = content == null ? "" : content;
     }
 
     public LocalDate getStartDate() {
