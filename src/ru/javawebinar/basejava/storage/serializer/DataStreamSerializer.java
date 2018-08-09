@@ -17,31 +17,36 @@ public class DataStreamSerializer implements Serializer {
             dos.writeUTF(resume.getUuid());
             dos.writeUTF(resume.getFullName());
             Map<ContactsType, String> contacts = resume.getContacts();
-            writeCollection (dos, contacts.entrySet(),entry -> {
+            writeCollection(dos, contacts.entrySet(), entry -> {
                 dos.writeUTF(entry.getKey().name());
                 dos.writeUTF(entry.getValue());
             });
 
-            writeCollection (dos, resume.getSections().entrySet(),entry -> {
+            writeCollection(dos, resume.getSections().entrySet(), entry -> {
                 SectionType type = entry.getKey();
                 Section section = entry.getValue();
                 dos.writeUTF(type.name());
-                if (type == SectionType.OBJECTIVE || type == SectionType.PERSONAL) {
-                    dos.writeUTF(((TextSection) section).getFilling());
-                } else if (type == SectionType.ACHIEVEMENT || type == SectionType.QUALIFICATIONS) {
-                    writeCollection (dos,((ListSection) section).getFilling(),dos::writeUTF);
-                } else if (type == SectionType.EDUCATION || type == SectionType.EXPERIENCE) {
-
-                    writeCollection(dos, ((EducationExpirienceSection) section).getEducationExperiences(),  organization-> {
-                        dos.writeUTF(organization.getPage().getName());
-                        dos.writeUTF(organization.getPage().getUrl());
-                        writeCollection (dos,organization.getActions(),action ->  {
-                            writeLocalDate(dos, action.getStartDate());
-                            writeLocalDate(dos, action.getEndDate());
-                            dos.writeUTF(action.getTitle());
-                            dos.writeUTF(action.getContent());
+                switch (type) {
+                    case PERSONAL:
+                    case OBJECTIVE:
+                        dos.writeUTF(((TextSection) section).getFilling());
+                        break;
+                    case QUALIFICATIONS:
+                    case ACHIEVEMENT:
+                        writeCollection(dos, ((ListSection) section).getFilling(), dos::writeUTF);
+                        break;
+                    case EXPERIENCE:
+                    case EDUCATION:
+                        writeCollection(dos, ((EducationExpirienceSection) section).getEducationExperiences(), organization -> {
+                            dos.writeUTF(organization.getPage().getName());
+                            dos.writeUTF(organization.getPage().getUrl());
+                            writeCollection(dos, organization.getActions(), action -> {
+                                writeLocalDate(dos, action.getStartDate());
+                                writeLocalDate(dos, action.getEndDate());
+                                dos.writeUTF(action.getTitle());
+                                dos.writeUTF(action.getContent());
+                            });
                         });
-                    });
                 }
             });
         }
@@ -54,18 +59,25 @@ public class DataStreamSerializer implements Serializer {
             String fullName = dis.readUTF();
             Resume resume = new Resume(uuid, fullName);
             readCollection(dis, () -> resume.setContacts(ContactsType.valueOf(dis.readUTF()), dis.readUTF()));
-            readCollection(dis, () -> { SectionType type = SectionType.valueOf(dis.readUTF());
-                if (type == SectionType.OBJECTIVE || type == SectionType.PERSONAL) {
-                    resume.setSections(type, new TextSection(dis.readUTF()));
-                } else if (type == SectionType.ACHIEVEMENT || type == SectionType.QUALIFICATIONS) {
-                    resume.setSections(type, new ListSection(readList(dis, dis::readUTF)));
-                } else if (type == SectionType.EDUCATION || type == SectionType.EXPERIENCE) {
-                    resume.setSections(type, new EducationExpirienceSection(
-                            readList(dis, ()->new EducationExperience(dis.readUTF(), dis.readUTF(),
-                                    readList(dis, ()-> new Action(
-                                            readLocalDate(dis), readLocalDate(dis), dis.readUTF(), dis.readUTF()
-                                    ))
-                            ))));
+            readCollection(dis, () -> {
+                SectionType type = SectionType.valueOf(dis.readUTF());
+                switch (type) {
+                    case PERSONAL:
+                    case OBJECTIVE:
+                        resume.setSections(type, new TextSection(dis.readUTF()));
+                        break;
+                    case QUALIFICATIONS:
+                    case ACHIEVEMENT:
+                        resume.setSections(type, new ListSection(readList(dis, dis::readUTF)));
+                        break;
+                    case EDUCATION:
+                    case EXPERIENCE:
+                        resume.setSections(type, new EducationExpirienceSection(
+                                readList(dis, () -> new EducationExperience(dis.readUTF(), dis.readUTF(),
+                                        readList(dis, () -> new Action(
+                                                readLocalDate(dis), readLocalDate(dis), dis.readUTF(), dis.readUTF()
+                                        ))
+                                ))));
                 }
             });
             return resume;
@@ -81,11 +93,11 @@ public class DataStreamSerializer implements Serializer {
         return LocalDate.of(dis.readInt(), dis.readInt(), 1);
     }
 
-    private interface WriterItems<T>{
+    private interface WriterItems<T> {
         void write(T t) throws IOException;
     }
 
-    private interface ReaderItems{
+    private interface ReaderItems {
         void read() throws IOException;
     }
 
