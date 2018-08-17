@@ -2,6 +2,7 @@ package ru.javawebinar.basejava.storage;
 
 import org.junit.Before;
 import org.junit.Test;
+import ru.javawebinar.basejava.Config;
 import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.*;
@@ -16,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractStorageTest {
-    protected static final File STORAGE_DIR = new File("C:\\Users\\Rodriguez\\basejava\\storage");
+    protected static final File STORAGE_DIR = Config.get().getStorageDir();
     public Storage storage;
 
     private static final String UUID_1 = "uuid1";
@@ -34,7 +35,7 @@ public abstract class AbstractStorageTest {
         resume_3 = new Resume(UUID_3, "name3");
         resume_4 = new Resume(UUID_4, "name4");
 
-        List<Action> workOrganization = new ArrayList<>();
+        /*List<Action> workOrganization = new ArrayList<>();
         workOrganization.add(new Action(LocalDate.of(2014, 5, 1), LocalDate.of(2013, 4, 1), "Разработчик", "Разработка ПО"));
         workOrganization.add(new Action(LocalDate.of(2016, 5, 1), LocalDate.of(2017, 8, 1), "Тестировщик", "Тестирование ПО"));
         List<EducationExperience> expirience = new ArrayList<>();
@@ -59,7 +60,7 @@ public abstract class AbstractStorageTest {
         resume_2.setContacts(ContactsType.Phone, "5465466567");
         resume_4.setContacts(ContactsType.Homepage, "vasechkin.com");
         resume_4.setContacts(ContactsType.Mail , "vasechkin@mail.com");
-
+*/
     }
 
 
