@@ -90,9 +90,9 @@ public abstract class AbstractStorageTest {
     @Test
     public void update() {
         Resume newResume = new Resume(UUID_1, "New Name");
-        newResume.setContacts(ContactsType.Mail, "petrov.com");
-        newResume.setContacts(ContactsType.Skype, "petrovich");
-        newResume.setContacts(ContactsType.Phone, "8951325687");
+//        newResume.setContacts(ContactsType.Mail, "petrov.com");
+//        newResume.setContacts(ContactsType.Skype, "petrovich");
+//        newResume.setContacts(ContactsType.Phone, "8951325687");
         storage.update(newResume);
         assertEquals(newResume, storage.get(UUID_1));
     }
@@ -137,7 +137,7 @@ public abstract class AbstractStorageTest {
     public void save() {
         storage.save(resume_4);
         assertEquals(4, storage.size());
-        assertEquals(resume_4, storage.get(UUID_4));
+        assertEquals(resume_4, storage.get(resume_4.getUuid()));
     }
 
     @Test(expected = ExistStorageException.class)

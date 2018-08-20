@@ -27,7 +27,17 @@ public class SqlStorage implements Storage {
 
     @Override
     public void update(Resume resume) {
-
+        try(Connection conn = connectionFactory.getConnection();
+            PreparedStatement ps = conn.prepareStatement("UPDATE resume SET full_name = ? WHERE uuid = ?")) {
+            ps.setString(1, resume.getFullName());
+            ps.setString(2, resume.getUuid());
+            ps.execute();
+            if(ps.executeUpdate() == 0){
+                throw new NotExistStorageException(resume.getUuid());
+            }
+        } catch (SQLException e){
+            throw new StorageException(e);
+        }
     }
 
     @Override
@@ -51,8 +61,8 @@ public class SqlStorage implements Storage {
             if(!rs.next()){
                 throw new NotExistStorageException(uuid);
             }
-            Resume r = new Resume(uuid, rs.getString("full_name"));
-            return r;
+            Resume resume = new Resume(uuid, rs.getString("full_name"));
+            return resume;
         } catch (SQLException e){
             throw new StorageException(e);
         }
@@ -60,7 +70,16 @@ public class SqlStorage implements Storage {
 
     @Override
     public void delete(String uuid) {
-
+        try(Connection conn = connectionFactory.getConnection();
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM resume WHERE uuid=?")) {
+            ps.setString(1, uuid);
+            ps.execute();
+            if (ps.executeUpdate() == 0) {
+                throw new NotExistStorageException(uuid);
+            }
+        } catch (SQLException e){
+            throw new StorageException(e);
+        }
     }
 
     @Override

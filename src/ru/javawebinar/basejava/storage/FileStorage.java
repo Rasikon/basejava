@@ -29,7 +29,7 @@ public class FileStorage extends AbstractStorage<File> {
     public void clear() {
         File[] listFiles = directory.listFiles();
         if (listFiles == null) {
-            throw new StorageException("Directory error", null);
+            throw new StorageException("Directory error", null,null);
         }
         for (File file : listFiles) {
             doDelete(file);
@@ -40,7 +40,7 @@ public class FileStorage extends AbstractStorage<File> {
     protected List<Resume> getCopy() {
         File[] listFiles = directory.listFiles();
         if (listFiles == null) {
-            throw new StorageException("Directory error", null);
+            throw new StorageException("Directory error",null,null);
         }
         List<Resume> list = new ArrayList<>(listFiles.length);
         for (File file : listFiles) {
@@ -53,7 +53,7 @@ public class FileStorage extends AbstractStorage<File> {
     public int size() {
         File[] listFiles = directory.listFiles();
         if (listFiles == null) {
-            throw new StorageException("Directory error", null);
+            throw new StorageException("Directory error", null,null);
         }
         return listFiles.length;
     }
